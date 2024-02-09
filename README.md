@@ -19,8 +19,15 @@ To use the stock management system, follow these steps:
 2. Navigate to the project directory:
 
 3. Run the main script:
+   ```
+   python main.py
+   ```
+5. Follow the on-screen prompts to perform various operations such as calculating dividend yield, recording trades, etc.
 
-4. Follow the on-screen prompts to perform various operations such as calculating dividend yield, recording trades, etc.
+6. Run the unit tests if you would like:
+   ```
+   pytest tests/test_stock_utilities.py
+   ``` 
 
 ## Directory Structure
 
