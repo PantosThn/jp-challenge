@@ -1,6 +1,6 @@
 import os
 import logging
-from src.stock_utilities import StockData, StockType, TradeType, GBCECalculator
+from src.stock_utilities import StockType, TradeType, GBCECalculator
 
 # Configure logging
 logs_directory='logs'
