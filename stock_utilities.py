@@ -12,7 +12,7 @@ class TradeType(Enum):
     BUY = "BUY"
     SELL = "SELL"
 
-class SimpleData:
+class StockData:
     def __init__(self, symbol: str, stock_type: StockType, last_dividend: float, fixed_dividend: float, par_value: float):
         """
         Initialize a SimpleData object with the given parameters.
@@ -41,16 +41,20 @@ class SimpleData:
             float: The calculated dividend yield.
             
         Raises:
-            ValueError: If the price is non-positive.
+            ValueError: If the price is non-positive, if the last dividend is non-positive,
+                        if the fixed dividend is non-positive for preferred stocks, or if the price is zero.
         """
-        # Check if price is non-positive
         if price <= 0:
             raise ValueError("Price must be positive")
-
-        # Calculate dividend yield based on stock type
+        
         if self.stock_type == StockType.COMMON:
+            if self.last_dividend is None or self.last_dividend < 0:
+                raise ValueError("Last dividend must be provided and be positive for Common stocks")
             return self.last_dividend / price
+        
         elif self.stock_type == StockType.PREFERRED:
+            if self.fixed_dividend is None or self.fixed_dividend <= 0:
+                raise ValueError("Fixed dividend must be provided and to be positive for Preferred stocks")
             return (self.fixed_dividend * self.par_value) / price
 
     def pe_ratio(self, price):
@@ -66,8 +70,12 @@ class SimpleData:
         # Calculate dividend yield
         dividend = self.dividend_yield(price)
         
-        # Return P/E ratio if dividend is non-zero, otherwise return None
-        return price / dividend if dividend != 0 else None
+        # Return None if the dividend is zero, indicating that the P/E ratio cannot be calculated
+        if dividend == 0:
+            return None
+        
+        # Calculate and return P/E ratio
+        return price / dividend
 
 
     def record_trade(self, quantity: int, price: float, indicator: TradeType):
@@ -82,6 +90,13 @@ class SimpleData:
         Returns:
             None
         """
+        if quantity <= 0:
+            raise ValueError("Quantity must be positive")
+        if price <= 0:
+            raise ValueError("Price must be positive")
+        if indicator not in TradeType:
+            raise ValueError("Invalid trade indicator")
+
         timestamp = datetime.now()
         self.trades.append({'timestamp': timestamp, 'quantity': quantity, 'price': price, 'indicator': indicator})
 
