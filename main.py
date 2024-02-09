@@ -26,7 +26,7 @@ def main():
         "5": gbce_all_share_index_interaction,
         "6": exit
     }
-    # Main loop for user interaction
+    # Main loop for user interactions
     while True:
         # Display menu options
         print("\nSelect an operation:")

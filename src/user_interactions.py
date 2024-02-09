@@ -64,7 +64,7 @@ def get_stock_data_from_user():
     elif stock_type == StockType.PREFERRED:
         fixed_dividend = None
         while fixed_dividend is None or fixed_dividend < 0:
-            fixed_dividend = get_float_input("Enter the fixed dividend rate for preferred stocks (percentage, it should not be negative): ")
+            fixed_dividend = get_float_input("Enter the fixed dividend rate for preferred stocks (percentage eg 0.02 for 2%, it should not be negative): ")
             if fixed_dividend < 0:
                 print("Fixed dividend must not be negative.")
         last_dividend = None
