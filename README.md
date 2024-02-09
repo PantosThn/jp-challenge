@@ -28,6 +28,7 @@ To use the stock management system, follow these steps:
    ```
    pytest tests/test_stock_utilities.py
    ``` 
+You should also be able to see in the log folder the user input as well as the values calculated.
 
 ## Directory Structure
 
