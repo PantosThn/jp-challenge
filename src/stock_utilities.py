@@ -1,6 +1,5 @@
 from enum import Enum
 from datetime import datetime, timedelta
-
 from operator import mul
 from functools import reduce
 
